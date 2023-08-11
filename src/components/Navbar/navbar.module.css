@@ -1,0 +1,7 @@
+.navlinks {
+    color: #fff;
+    text-decoration: none;
+}
+.navlinks:hover {
+    color: #ccc;
+}
