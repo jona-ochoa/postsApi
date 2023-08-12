@@ -64,14 +64,14 @@ function Home() {
   };
 
   return (
-    <Container>
+    <Container className={styles.herocontainer}  maxWidth="xl">
       <Box
         display="flex"
         alignItems="center"
         justifyContent="center"
         sx={{
-          minWidth: 650,
-          p: 3,
+          minWidth: 450,
+          p: 2,
         }}
       >
         <ButtonGroup
@@ -103,7 +103,9 @@ function Home() {
         </ButtonGroup>
       </Box>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size="large" aria-label="simple table">
+        <Table 
+        aria-label="a dense table"
+        >
           <TableHead sx={{ maxHeight: 30, height: 30 }}>
             <TableRow>
               <TableCell align="center">
@@ -124,22 +126,27 @@ function Home() {
             {currentPosts?.map((post) => (
               <TableRow
                 key={post.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 1 } }}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell align="right">{post.userId}</TableCell>
+                <TableCell align="center">{post.userId}</TableCell>
                 <NavLink to={"/detail/" + post.id} className={styles.herolink}>
                   <TableCell
                     component="th"
                     scope="post"
+                    size="large"
+                    sx={{
+                      width: 350,
+                      p: 2,
+                    }}
                     className={styles.herolinks}
                   >
                     {post.title}
                   </TableCell>
                 </NavLink>
-                <TableCell align="right" className={styles.herodesc}>
+                <TableCell align="center" className={styles.herodesc}>
                   {post.body}
                 </TableCell>
-                <TableCell align="right">
+                <TableCell align="center">
                   <Button
                     variant="contained"
                     color="error"

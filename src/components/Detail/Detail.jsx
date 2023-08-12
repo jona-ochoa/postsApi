@@ -2,6 +2,9 @@ import { useEffect } from "react";
 import { fetchPostIdData } from "../../Redux/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -14,14 +17,27 @@ const Detail = () => {
   }, [dispatch, id]);
 
   return (
-    <div>
-      <h1>Detalles del POST</h1>
+    <Container 
+      sx={{
+        p: 6
+      }}
+    >
+      <Box >
+        <Typography variant="h3" gutterBottom>
+          Detalles del POST User: {details.userId}
+        </Typography>
+      
 
-      <div key={details.userId}>
-        <h1>{details.title}</h1>
-        <h2>{details.body}</h2>
-      </div>
-    </div>
+        <Box key={details.userId}>
+          <Typography variant="h4" gutterBottom>
+            Subtitle: {details.title}
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Description: {details.body}
+          </Typography>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
