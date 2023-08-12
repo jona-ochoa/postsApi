@@ -12,11 +12,13 @@ import Typography from "@mui/material/Typography";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Box from "@mui/material/Box";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData } from "../../Redux/action";
+import { fetchPostData } from "../../Redux/action";
 import ModalDeletePost from "../Modal/ModalDeletePost";
+import { NavLink } from "react-router-dom";
+
+import styles from "./hero.module.css";
 
 function Home() {
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -31,7 +33,7 @@ function Home() {
     postData && postData?.slice(indexOfFirstPost, indexOfLastPost);
 
   useEffect(() => {
-    dispatch(fetchUserData());
+    dispatch(fetchPostData());
   }, [dispatch]);
 
   const totalPages = Math.ceil(postData.length / itemsPerPage);
@@ -39,7 +41,6 @@ function Home() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-
 
   const renderPageButtons = () => {
     const pageButtons = [];
@@ -60,7 +61,7 @@ function Home() {
 
   const handleDelete = () => {
     setIsModalOpen(true);
-  }
+  };
 
   return (
     <Container>
@@ -74,43 +75,44 @@ function Home() {
         }}
       >
         <ButtonGroup
-    orientation="horizontal"
-    aria-label="horizontal outlined button group"
-    sx={{
-      "& > *": {
-        p: 1,
-      },
-    }}
-  >
-    <Button
-      variant="contained"
-      disabled={currentPage === 1}
-      onClick={() => setCurrentPage(currentPage - 1)}
-    >
-      {"<"}
-    </Button>
+          orientation="horizontal"
+          aria-label="horizontal outlined button group"
+          sx={{
+            "& > *": {
+              p: 1,
+            },
+          }}
+        >
+          <Button
+            variant="contained"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            {"<"}
+          </Button>
 
-    {renderPageButtons()}
+          {renderPageButtons()}
 
-    <Button
-      variant="contained"
-      disabled={indexOfLastPost >= postData.length}
-      onClick={() => setCurrentPage(currentPage + 1)}
-    >
-      {">"}
-    </Button>
-  </ButtonGroup>
+          <Button
+            variant="contained"
+            disabled={indexOfLastPost >= postData.length}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            {">"}
+          </Button>
+        </ButtonGroup>
       </Box>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} size="large" aria-label="simple table">
           <TableHead sx={{ maxHeight: 30, height: 30 }}>
             <TableRow>
               <TableCell align="center">
-                <Typography variant="h6">Title</Typography>
+                <Typography variant="h6">Id</Typography>
               </TableCell>
               <TableCell align="center">
-                <Typography variant="h6">Id-User</Typography>
+                <Typography variant="h6">Title</Typography>
               </TableCell>
+
               <TableCell align="center">
                 <Typography variant="h6">Post</Typography>
               </TableCell>
@@ -124,23 +126,37 @@ function Home() {
                 key={post.id}
                 sx={{ "&:last-child td, &:last-child th": { border: 1 } }}
               >
-                <TableCell component="th" scope="post">
-                  {post.title}
-                </TableCell>
                 <TableCell align="right">{post.userId}</TableCell>
-                <TableCell align="right">{post.body}</TableCell>
+                <NavLink to={"/detail/" + post.id} className={styles.herolink}>
+                  <TableCell
+                    component="th"
+                    scope="post"
+                    className={styles.herolinks}
+                  >
+                    {post.title}
+                  </TableCell>
+                </NavLink>
+                <TableCell align="right" className={styles.herodesc}>
+                  {post.body}
+                </TableCell>
                 <TableCell align="right">
-                  <Button variant="contained" color="error" onClick={handleDelete}>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={handleDelete}
+                  >
                     Delete
                   </Button>
-                   <ModalDeletePost isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+                  <ModalDeletePost
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                  />
                 </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
-      
     </Container>
   );
 }

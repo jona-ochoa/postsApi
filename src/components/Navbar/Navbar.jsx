@@ -18,27 +18,27 @@ export default function Navbar() {
             aria-label="menu"
             sx={{ mr: 2 }}
           >
-            Logo
+            <NavLink to="/" className={styles.navlogo}>
+              APPOST
+            </NavLink>
+              
           </IconButton>
           <Box display="flex" justifyContent="space-evenly" sx={{ flexGrow: 1, p: 1 }}>
           <Typography variant="h6" component="div">
             <NavLink className={styles.navlinks} to="/">
-              Home
+              Inicio
             </NavLink>
           </Typography>
+          
           <Typography variant="h6" component="div" >
-            <NavLink className={styles.navlinks} to="/about">
-              About me
+            <NavLink className={styles.navlinks} to="/form">
+              Postear
             </NavLink>
           </Typography>
+
           <Typography variant="h6" component="div" >
             <NavLink className={styles.navlinks} to="/about">
-              Detail
-            </NavLink>
-          </Typography>
-          <Typography variant="h6" component="div" >
-            <NavLink className={styles.navlinks} to="/about">
-              Form
+              Acerca de mi
             </NavLink>
           </Typography>
           </Box>

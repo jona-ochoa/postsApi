@@ -5,3 +5,7 @@
 .navlinks:hover {
     color: #ccc;
 }
+.navlogo{
+    color: #fff;
+    text-decoration: none;
+}
