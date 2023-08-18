@@ -1,4 +1,4 @@
-const { getPostController } = require('../controllers/getPostController')
+const { getPostController } = require('../controllers/Post/getPostController')
 
 const getPostHandler = async (req, res) => {
     const { title, body } = req.query;
